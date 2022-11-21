@@ -8,7 +8,7 @@ Par conséquent, **ne changez pas vos habitudes de développement pour l'exercic
 
 ## Contexte
 
-Monsieur Duchemin est le PDG LampCity. Il s'agit d'une entreprise spécialisé dans la pose et la maintenance de lampadaire public.
+Monsieur Duchemin est le PDG LampCity. Il s'agit d'une entreprise spécialisée dans la pose et la maintenance de lampadaire public.
 
 Chaque matin, son chef de chantier Thibault et ses collègues du bureau, contact par téléphone les différentes équipes d'intervention afin de leur communiquer les interventions à effectuer pour le jour même. De cette façon, les équipes n'ont pas besoin de se déplacer jusqu'au bureau.
 
@@ -26,7 +26,7 @@ Un projet a été initialisé, et des interfaces ont été conçues en atelier d
 
 Vous allez donc devoir développer les fonctionnalités demandées et vous aller devoir écrire les tests afin que vos collègues puissent se servir de votre travail pour la suite des développements.
 
-**Vous ne devez pas modifier ce qui a été décidé en atelier de conception !**
+**Vous ne devez pas modifier ce qui a été décidé en atelier de conception !**. Si vous vous rendez compte d'une erreur de conception, contactez l'équipe de conception.
 
 Pour tout le reste, vous êtes libre de développer comme vous le voulez.
 
@@ -42,22 +42,22 @@ Pour tout le reste, vous êtes libre de développer comme vous le voulez.
 ### En tant qu'utilisateur, je veux pouvoir confirmer une instruction
 
 - Une équipe pourra *Confirmer* une instruction pour dire qu'elle la prise en compte. La date et l'heure de confirmation devront être affichées.
-- Si l'instruction est déjà confirmée, alors un erreur précisant que l'opération n'est pas permise devra être indiquée.
-- Si l'instruction est terminée, alors un erreur précisant que l'opération n'est pas permise devra être indiquée.
-- Si l'instruction est annulée, alors un erreur précisant que l'opération n'est pas permise devra être indiquée.
+- Si l'instruction est déjà confirmée, alors une erreur précisant que l'opération n'est pas permise devra être indiquée.
+- Si l'instruction est terminée, alors une erreur précisant que l'opération n'est pas permise devra être indiquée.
+- Si l'instruction est annulée, alors une erreur précisant que l'opération n'est pas permise devra être indiquée.
 
 ### En tant qu'utilisateur, je veux pouvoir terminer une instruction
 
 - Une équipe pourra *Terminer* une instruction pour dire que l'intervention est terminée. La date et l'heure à laquelle l'instruction est terminée devront être affichées.
-- Si l'instruction n'est pas confirmée, alors un erreur précisant que l'opération n'est pas permise devra être indiquée.
-- Si l'instruction est déjà terminée, alors un erreur précisant que l'opération n'est pas permise devra être indiquée.
-- Si l'instruction est annulée, alors un erreur précisant que l'opération n'est pas permise devra être indiquée.
+- Si l'instruction n'est pas confirmée, alors une erreur précisant que l'opération n'est pas permise devra être indiquée.
+- Si l'instruction est déjà terminée, alors une erreur précisant que l'opération n'est pas permise devra être indiquée.
+- Si l'instruction est annulée, alors une erreur précisant que l'opération n'est pas permise devra être indiquée.
 
 ### En tant qu'utilisateur, je veux pouvoir annuler une instruction
 
 - Un agent de bureau pourra *Annuler* une instruction. La date et l'heure d'annulation devront être affichées.
-- Si l'instruction est confirmée, alors un erreur précisant que l'opération n'est pas permise devra être indiquée.
-- Si l'instruction est terminée, alors un erreur précisant que l'opération n'est pas permise devra être indiquée.
+- Si l'instruction est confirmée, alors une erreur précisant que l'opération n'est pas permise devra être indiquée.
+- Si l'instruction est terminée, alors une erreur précisant que l'opération n'est pas permise devra être indiquée.
 
 
 ### En tant qu'utilisateur, je veux pouvoir consulter les instructions
@@ -83,11 +83,13 @@ Quelques exemples :
 
 Lors de la phase de conception technique de la couche métier, l'équipe s'est mis d'accord sur un ensemble de ports sur lesquels les autres couches pourront se brancher. Ce qui permettra de faciliter la collaboration entre les équipes.
 
-Ses ports sont composé de requête (les données en entrée fournit par la couche appelante), les *use case* (qui vont implementer la fonctionnalité attendu) et les réponses (ce qui sera renvoyé à la couche appelante).
+Ses ports sont composés de requêtes (les données en entrée fournies par la couche appelante), les *use case* (qui vont implementer la fonctionnalité attendu) et les réponses (ce qui sera renvoyé à la couche appelante).
 
 Le dévelopeur chargé d'implémenter les fonctionnalités, pourra les implémenters commebon lui semble tant qu'elles respectent ces ports et sont testées.
 
-A cela s'ajoute deux exceptions qui seront soulevées en cas d'erreur métier dans les *use cases*. Deux type d'exceptions pourront être soulevée `NotAllowedException` pour les opérations non permises, et `ValidationException` pour toute saisie incorrect de l'utilisateur.
+A cela s'ajoute trois exceptions qui seront soulevées en cas d'erreur métier dans les *use cases*. Trois types d'exceptions pourront être soulevées `NotAllowedException` pour les opérations non permises, `ValidationException` pour toute saisie incorrect de l'utilisateur et `ResourceNotFoundException` en cas de ressource non trouvée.
+
+Les identifiants des instructions, devront être au format `GUID`.
 
 ### En tant qu'utilisateur, je veux pouvoir créer une instruction
 
@@ -136,6 +138,8 @@ La réponse :
 public record VoidResponse;
 ```
 
+En cas d'instruction inconnu lever l'exception `ResourceNotFoundException`.
+
 ### En tant qu'utilisateur, je veux pouvoir terminer une instruction
 
 La requête :
@@ -156,6 +160,8 @@ La réponse :
 public record VoidResponse;
 ```
 
+En cas d'instruction inconnu lever l'exception `ResourceNotFoundException`.
+
 ### En tant qu'utilisateur, je veux pouvoir annuler une instruction
 
 La requête :
@@ -175,6 +181,8 @@ La réponse :
 ```C#
 public record VoidResponse;
 ```
+
+En cas d'instruction inconnu lever l'exception `ResourceNotFoundException`.
 
 ### En tant qu'utilisateur, je veux pouvoir consulter les instructions
 

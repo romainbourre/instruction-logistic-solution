@@ -4,7 +4,7 @@ namespace InstructionLogisticSolution.Domain.Ports.Exceptions;
 public class NotAllowedException : DomainException
 {
     private const string Scope = "this operation is not allowed";
-    public NotAllowedException(string? message = null) : base(ComputeMessage(Scope, message))
+    public NotAllowedException(string? message = null) : base(Scope, message)
     {
     }
 }

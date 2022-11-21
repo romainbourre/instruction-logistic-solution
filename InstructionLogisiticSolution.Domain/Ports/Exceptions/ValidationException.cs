@@ -4,7 +4,7 @@ namespace InstructionLogisticSolution.Domain.Ports.Exceptions;
 public class ValidationException : DomainException
 {
     private const string Scope = "validation error";
-    public ValidationException(string? message = null) : base(ComputeMessage(Scope, message))
+    public ValidationException(string? message = null) : base(Scope, message)
     {
     }
 }
